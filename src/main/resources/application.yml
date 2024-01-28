@@ -1,0 +1,21 @@
+spring:
+
+
+
+  mvc:
+    static-path-pattern: /**
+
+  web:
+    resources:
+      static-locations:
+        - classpath:/META-INF/resources/
+        - classpath:/resources/
+        - classpath:/static/
+        - classpath:/public/
+      add-mappings: true
+
+  thymeleaf:
+    prefix: classpath:/templates/
+    cache: false
+  #
+
