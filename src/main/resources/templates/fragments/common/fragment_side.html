@@ -3,10 +3,10 @@
 <!-- Main Sidebar Container -->
 <aside class="main-sidebar sidebar-dark-primary elevation-4" th:fragment="sideFragment">
   <!-- Brand Logo -->
-  <a href="index3.html" class="brand-link">
+  <a th:href="@{/main}" class="brand-link">
     <img th:src="@{/images/AdminLTELogo.png}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
          style="opacity: .8">
-    <span class="brand-text font-weight-light">Power Note</span>
+    <span class="brand-text font-weight-light">Testing</span>
   </a>
 
   <!-- Sidebar -->
@@ -26,17 +26,29 @@
           </a>
         </li>
         <li class="nav-item">
-          <a href="#" class="nav-link">
-            <i class="far fa-circle nav-icon"></i>
-            <p>Page 1</p>
+          <a th:href="@{/hello}" class="nav-link">
+            <i ></i>
+            <p>API 정보 </p>
           </a>
         </li>
         <li class="nav-item">
           <a href="#" class="nav-link">
-            <i class="far fa-circle nav-icon"></i>
-            <p>Page 2</p>
+            <i ></i>
+            <p>거래 관리</p>
           </a>
-        </li>
+        </li>        
+        <li class="nav-item">
+          <a href="#" class="nav-link">
+            <i ></i>
+            <p>시나리오 관리</p>
+          </a>
+        </li>  
+        <li class="nav-item">
+          <a href="#" class="nav-link">
+            <i ></i>
+            <p>테스트결과</p>
+          </a>
+        </li>             
         <li class="nav-header">EXAMPLES</li>
         <li class="nav-item has-treeview">
           <a href="#" class="nav-link">
