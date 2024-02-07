@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout_common}"
+      >
+<body>
+<div class="content-wrapper" layout:fragment="content">
+<th:block th:replace="fragments/common/fragment_jsimport :: f_jsimport"></th:block>
+      <h1 class="mt-4">customer Modify Page</h1>
+
+        <!-- 수정/삭제 작접을 POST 방식으로 처리 -->
+        <form th:action="@{/customer/modify}" method="post">
+
+            <!--페이지 번호 : 수정이 완료된 후에도 다시 동일한 정보를 유지할 수 있도록 page값을 form 태그에 추가해 전달 -->
+            <input type="hidden" name="page" th:value="${requestDto.page}">
+            <input type="hidden" name="type" th:value="${requestDto.type}" >
+            <input type="hidden" name="keyword" th:value="${requestDto.keyword}" >
+
+
+            <div class="form-group">
+            <label >id</label>
+                <!-- readonly : 수정불가, 일기전용-->
+            <input type="text" class="form-control" name="id" th:value="${dto.id}" readonly >
+        </div>
+
+        <div class="form-group">
+            <label >Nickname</label>>
+            <input type="text" class="form-control" name="nickname" th:value="${dto.nickname}" >
+        </div>
+
+        <div class="form-group">
+            <label >Email</label>
+            <input type="text" class="form-control" name="email" th:value="${dto.email}" readonly>
+        </div>
+        <div class="form-group">
+            <label >JoinDate</label>
+            <input type="text" class="form-control" th:value="${dto.joinDate}" readonly>
+        </div>
+
+
+        </form>
+
+        <button type="button" class="btn btn-primary modifyBtn">Modify</button>
+
+        <button type="button" class="btn btn-info listBtn">List</button>
+
+        <button type="button" class="btn btn-danger removeBtn">Remove</button>
+
+        <script th:inline="javascript">
+		
+            var actionForm = $("form"); //form 태그 객체
+
+            // Remove 버튼을 클릭하면 <form> 태그의 action 속성과 method 속성을 조정
+            // <form> 태그 내에는 <input>태그로 gno가 있기 때문에 컨트롤러에서는 여러 파라미터 중 gno를 추출해 삭제시 사용한다
+            $(".removeBtn").click(function(){
+
+                actionForm
+                    .attr("action", "/customer/remove")
+                    .attr("method","post");
+
+                actionForm.submit();
+
+            });
+
+            // Modify 버튼의 이벤트 처리를 통해 수정
+            $(".modifyBtn").click(function() {
+
+                if(!confirm("수정하시겠습니까?")){
+                    return ;
+                }
+
+                actionForm
+                    .attr("action", "/customer/modify")
+                    .attr("method","post")
+                    .submit();
+            });
+
+
+            $(".listBtn").click(function() {
+
+                //var pageInfo = $("input[name='page']");
+                var page = $("input[name='page']");
+                var type = $("input[name='type']");
+                var keyword = $("input[name='keyword']");
+
+                actionForm.empty(); //form 태그의 모든 내용을 지우고
+
+                // 목록 페이지 이동에 필요한 내용 다시 추가
+                actionForm.append(page);
+                actionForm.append(type);
+                actionForm.append(keyword);
+
+
+                actionForm
+                    .attr("action", "/customer/list")
+                    .attr("method","get");
+
+               actionForm.submit();
+
+            })
+
+        </script>
+</div>
+</body>
+</html>

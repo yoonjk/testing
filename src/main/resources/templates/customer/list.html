@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout_common}"
+      >
+<body>
+<div class="content-wrapper" layout:fragment="content">
+
+
+        <h1 class="mt-4">customer List Page
+            <span>
+                <a th:href="@{/customer/register}">
+                    <button type="button" class="btn btn-outline-primary">REGISTER
+                    </button>
+                </a>
+            </span>
+        </h1>
+
+        <!-- 검색 -->
+        <form action="/customer/list" method="get" id="searchForm">
+            <div class="input-group">
+                <input type="hidden" name="page" value = "1">
+                <div class="input-group-prepend">
+                    <select class="custom-select" name="type">
+                        <option th:selected="${pageRequestDto.type == null}">-------</option>
+                        <option value="t" th:selected="${pageRequestDto.type =='t'}" >Nickname</option>
+                        <option value="c" th:selected="${pageRequestDto.type =='c'}"  >Email</option>
+                        <option value="w"  th:selected="${pageRequestDto.type =='w'}" >JoinDate</option>
+                       
+                    </select>
+                </div>
+                <input class="form-control" name="keyword" th:value="${pageRequestDto.keyword}">
+                <div class="input-group-append" id="button-addon4">
+                    <button class="btn btn-outline-secondary btn-search" type="button">Search</button>
+                    <button class="btn btn-outline-secondary btn-clear" type="button">Clear</button>
+                </div>
+            </div>
+        </form>
+
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">nickname</th>
+                <th scope="col">email</th>
+                <th scope="col">joinDate</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            <!-- th:each를 이용해 PageResultDto 안에 들어있는 dtoList 반복처리 -->
+            <tr th:each="dto : ${result.dtoList}" >
+                <th scope="row">
+                    <a th:href="@{/customer/read(id = ${dto.id},
+                    page= ${result.page},
+                    type=${pageRequestDto.type} ,
+                    keyword = ${pageRequestDto.keyword})}">
+                    [[${dto.id}]]
+                    </a>
+                </th>
+                <td>[[${dto.nickname}]]</td>
+                <td>[[${dto.email}]]</td>
+                <!-- 년/월/일 포맷으로 출력-->
+                <td>[[${dto.joinDate}]]</td>
+            </tr>
+            </tbody>
+        </table>
+
+        <ul class="pagination h-100 justify-content-center align-items-center">
+
+            <!-- 이전,다음 -> th:if 사용하여 처리-->
+            <!-- th:href 사용하여 링크이동 처리 -->
+            <li class="page-item " th:if="${result.prev}">
+                <a class="page-link" th:href="@{/customer/list(page= ${result.start -1},
+                    type=${pageRequestDto.type} ,
+                    keyword = ${pageRequestDto.keyword} ) }" tabindex="-1">Previous</a>
+            </li>
+
+            <!-- active : 현재 페이지 여부 체크 -->
+            <li th:class=" 'page-item ' + ${result.page == page?'active':''} " th:each="page: ${result.pageList}">
+                <a class="page-link" th:href="@{/customer/list(page = ${page} ,
+                   type=${pageRequestDto.type} ,
+                   keyword = ${pageRequestDto.keyword}  )}">
+                    [[${page}]]
+                </a>
+            </li>
+
+            <li class="page-item" th:if="${result.next}">
+                <a class="page-link" th:href="@{/customer/list(page= ${result.end + 1} ,
+                    type=${pageRequestDto.type} ,
+                    keyword = ${pageRequestDto.keyword} )}">Next</a>
+            </li>
+
+        </ul>
+
+        <!-- 모달창 -->
+        <div class="modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Modal title</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Modal body text goes here.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 등록 후 전달되는 msg 값 확인 모달창 처리-->
+        <script th:inline="javascript">
+            var msg = [[${msg}]];
+
+            console.log(msg);
+
+            if(msg){
+                $(".modal").modal();
+            }
+
+            <!-- btn-search를 클릭하면 새롭게 선택된 겁색 타입과 키워드로 1페이지 검색 -->
+            var searchForm = $("#searchForm");
+
+            $('.btn-search').click(function(e){
+
+                searchForm.submit();
+
+            });
+
+            <!-- btn-clear 클릭하면 모든 검색과 관련된 내용을 삭제하고 검색이 없는 목록페이지를 호출 -->
+            $('.btn-clear').click(function(e){
+
+                searchForm.empty().submit();
+
+            });
+        </script>
+
+</div>
+</body>
+</html>

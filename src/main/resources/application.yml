@@ -1,7 +1,4 @@
 spring:
-
-
-
   mvc:
     static-path-pattern: /**
 
@@ -18,4 +15,23 @@ spring:
     prefix: classpath:/templates/
     cache: false
   #
-
+  datasource:
+    url: ${DB_SERVER}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    driver-class-name: com.ibm.db2.jcc.DB2Driver
+    hikari:
+      connection-timeout: 5000
+      validation-timeout: 1000
+      maximum-pool-size: 30
+      minimum-idle: 2
+  jpa:
+    hibernate:
+      ddl-auto: update
+      show_sql: true
+      naming:
+        implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyComponentPathImpl
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.DB2Dialect

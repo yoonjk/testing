@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout_common}"
+      >
+<body>
+<div class="content-wrapper" layout:fragment="content">
+
+        <h1 class="mt-4">customer Read Page</h1>
+
+        <div class="form-group">
+            <label >id</label>
+            <input type="text" class="form-control" name="id" th:value="${dto.id}" readonly >
+        </div>
+
+        <div class="form-group">
+            <label >Nickname</label>>
+            <input type="text" class="form-control" name="nickname" th:value="${dto.nickname}" readonly >
+        </div>
+        <div class="form-group">
+            <label >Email</label>
+            <textarea class="form-control" rows="5" name="email" readonly>[[${dto.email}]]</textarea>
+        </div>
+
+        <div class="form-group">
+            <label >RegDate</label>
+            <input type="text" class="form-control" name="joinDate" th:value="${dto.joinDate}" readonly>
+        </div>
+
+
+        <a th:href="@{/customer/modify(id = ${dto.id}, page=${requestDto.page})}"><button type="button" class="btn btn-primary">Modify</button></a>
+
+        <a th:href="@{/customer/list(page=${requestDto.page})}"><button type="button" class="btn btn-info">List</button></a>
+
+
+        <a th:href="@{/customer/modify(id = ${dto.id}, page=${requestDto.page}, type=${requestDto.type}, keyword =${requestDto.keyword})}">
+            <button type="button" class="btn btn-primary">Modify</button>
+        </a>
+
+        <a th:href="@{/customer/list(page=${requestDto.page} , type=${requestDto.type}, keyword =${requestDto.keyword})}">
+            <button type="button" class="btn btn-info">List</button>
+        </a>
+</div>
+</body>
+</html>
