@@ -4,20 +4,24 @@
       layout:decorate="~{layout/layout_common}"
       >
 <body>
+<div class="container-fluid" style="max-width: 900px; margin: 0 auto;">
 <div class="content-wrapper" layout:fragment="content">
 
 
-        <h1 class="mt-4">customer List Page
+        <h1 class="mt-4">Customer List Page
+            
+        </h1>
+        <p><class="mt-4">
             <span>
                 <a th:href="@{/customer/register}">
                     <button type="button" class="btn btn-outline-primary">REGISTER
                     </button>
                 </a>
             </span>
-        </h1>
+        </p>
 
         <!-- 검색 -->
-        <form action="/customer/list" method="get" id="searchForm">
+        <form th:action="@{/customer/list}" method="get" id="searchForm">
             <div class="input-group">
                 <input type="hidden" name="page" value = "1">
                 <div class="input-group-prepend">
@@ -141,6 +145,7 @@
             });
         </script>
 
+</div>
 </div>
 </body>
 </html>

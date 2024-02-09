@@ -32,14 +32,6 @@
 
         <a th:href="@{/customer/list(page=${requestDto.page})}"><button type="button" class="btn btn-info">List</button></a>
 
-
-        <a th:href="@{/customer/modify(id = ${dto.id}, page=${requestDto.page}, type=${requestDto.type}, keyword =${requestDto.keyword})}">
-            <button type="button" class="btn btn-primary">Modify</button>
-        </a>
-
-        <a th:href="@{/customer/list(page=${requestDto.page} , type=${requestDto.type}, keyword =${requestDto.keyword})}">
-            <button type="button" class="btn btn-info">List</button>
-        </a>
 </div>
 </body>
 </html>
