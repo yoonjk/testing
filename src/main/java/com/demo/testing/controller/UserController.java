@@ -28,7 +28,6 @@ public class UserController {
 
         List<String> listProfession = Arrays.asList("Developer", "Tester", "Architect");
         model.addAttribute("listProfession", listProfession);
-
         
         return "/user/register_form";
     }
