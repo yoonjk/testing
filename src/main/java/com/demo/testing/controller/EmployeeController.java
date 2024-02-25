@@ -27,7 +27,7 @@ public class EmployeeController {
         //model.addAttribute("allemplist", employeeService.getAllEmployee());
         //model.addAttribute("allemplist", employeeService.getAllEmployee());
         return findPaginated(1, "nickname", "asc", model);
-        //return "/employee/list";
+//        return "/employee/list";
     }
 
     @GetMapping("/page/{pageNo}")
