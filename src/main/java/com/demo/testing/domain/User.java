@@ -1,13 +1,14 @@
 package com.demo.testing.domain;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
-
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 @ToString
 @Setter
@@ -25,7 +26,8 @@ public class User {
     private String password;
     private String gender;
     private String note;
-    private boolean married;
+
+    private int married;
     private String birthday;
     private String profession;
 }
